@@ -38,10 +38,13 @@ $(function() {
       {flow: 1, ticks: {major: 0.25, minor: 0.05}},
       {flow: 0, ticks: {major: 0.1, minor: 0.05}}
     ];
-    order = Math.trunc((Math.log(max_val) / Math.LN10) + 0.000000001);
-    val = vals.find(
-      function x(val) {
-        return (max_val / Math.pow(10, order)) >= val['flow'];});
+    order = Math.floor((Math.log(max_val) / Math.LN10) + 0.000000001);
+    for (i = 0; i < vals.length; i++) {
+      if ((max_val / Math.pow(10, order)) >= vals[i]['flow']) {
+        val = vals[i];
+        break;
+      }
+    }
     val['ticks']['major'] *= Math.pow(10, order);
     val['ticks']['minor'] *= Math.pow(10, order);
     return val['ticks'];
@@ -52,12 +55,12 @@ $(function() {
     var max_val, tick;
     max_val = Math.max(inflow_val, outflow_val, 1);
     tick = ticks(max_val)['major'];
-    if ((Math.trunc(max_val / tick) * tick) == max_val) {
+    if ((Math.floor(max_val / tick) * tick) == max_val) {
       // At a tick mark already, leave as-as.
       return max_val;
     }
     // Next major tick.
-    return ((Math.trunc(max_val / tick) + 1) * tick);
+    return ((Math.floor(max_val / tick) + 1) * tick);
   }
 
   function format_date_title(date_str) {
