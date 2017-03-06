@@ -39,7 +39,7 @@ $(function() {
       {flow: 0, ticks: {major: 0.1, minor: 0.05}}
     ];
     order = Math.floor((Math.log(max_val) / Math.LN10) + 0.000000001);
-    for (i = 0; i < vals.length; i++) {
+    for (var i = 0; i < vals.length; i++) {
       if ((max_val / Math.pow(10, order)) >= vals[i]['flow']) {
         val = vals[i];
         break;
@@ -160,7 +160,7 @@ $(function() {
     inflow_gauge.value = data['value']['inflow'];
     outflow_gauge.value = data['value']['outflow'];
   }
-  
+
   jQuery(document).ready(function(){
     var CORSURLPrefix, url;
     CORSURLPrefix = 'https://cors-anywhere.herokuapp.com/';
