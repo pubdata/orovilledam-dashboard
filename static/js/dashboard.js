@@ -52,8 +52,9 @@ $(function() {
 
   function max_flow(inflow_val, outflow_val) {
     // Dynamically set gauge max to next major tick.
-    var max_val, tick;
-    max_val = Math.max(inflow_val, outflow_val, 1);
+    var max_val, min_max_val, tick;
+    min_max_val = 20000;  // Gauge max should never be less than this.
+    max_val = Math.max(inflow_val, outflow_val, min_max_val);
     tick = ticks(max_val)['major'];
     if ((Math.floor(max_val / tick) * tick) == max_val) {
       // At a tick mark already, leave as-as.
