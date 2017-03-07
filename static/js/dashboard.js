@@ -75,11 +75,12 @@ $(function() {
 
   function draw_gauges(data) {
     var max_flow_val, level_min, level_gauge, inflow_gauge, outflow_gauge;
+    level_min = Math.min(
+        (Math.floor((data['value']['level'] - 15) / 50) - Math.floor(data['value']['level'] / 750)) * 50, 750);  // Dynamically set min level -- lessen gap from bottom when at lower levels.
     max_flow_val = max_flow(data['value']['inflow'], data['value']['outflow']);
     $('#level-title').text('Lake Level, ' + data['title']['level']);
     $('#inflow-title').text('Inflow, ' + data['title']['flow']);
     $('#outflow-title').text('Outflow, ' + data['title']['flow']);
-    level_min = Math.min((Math.floor((data['value']['level'] - 15) / 50) - Math.floor(data['value']['level'] / 750)) * 50, 750);  // Dynamic set min level -- lessen gap from bottom when at lower levels.
     level_gauge = new LinearGauge({
       renderTo: 'level-gauge',
       width: 180,
