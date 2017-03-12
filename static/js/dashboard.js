@@ -4,7 +4,9 @@ $(function() {
     var blank_val, html, table, level_row, flow_row;
     blank_val = (' '.repeat(10) + '--').slice(-10);
     html = $.parseHTML(data.replace(/<img[^>]+>/gi, ''));
-    table = $('div.content_left_column table:has(tr:nth-child(14):last-child:has(td:nth-child(15):last-child))', html);
+    // CDEC table has multiple tables. Select table that has either 14 or 15 rows and exactly 15 columns.
+    // Number of rows varies as at top of hour, newest row is added before oldest row is purged/aged off.
+    table = $('div.content_left_column table:has(tr:nth-child(14):last-child:has(td:nth-child(15):last-child), tr:nth-child(15):last-child:has(td:nth-child(15):last-child))', html);
     level_row = $('tr:has(td:nth-child(2):not(:contains(' + blank_val + ')))', table).last();
     flow_row = $('tr:has(td:nth-child(8):not(:contains(' + blank_val + '))):has(td:nth-child(10):not(:contains(' + blank_val + ')))', table).last();
     draw_gauges({
